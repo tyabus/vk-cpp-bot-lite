@@ -1,0 +1,5 @@
+vkbotlite
+*.o
+*.json
+*.sh
+cmd-*
