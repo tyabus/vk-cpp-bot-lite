@@ -41,6 +41,7 @@ all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
+	strip $(EXECUTABLE)
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
