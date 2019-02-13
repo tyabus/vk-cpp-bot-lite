@@ -423,7 +423,7 @@ void cmds::ip(message *inMsg, table *outMsg)
 	json ip = json::parse(net::send("http://ip-api.com/json/" + str::summ(inMsg->words, 1)));
 	(*outMsg)["message"] = ip.dump(4);
 	if (!ip["message"].is_null())
-		(*outMsg)["message"] = "НЕ ВЕРНЫЙ ОЙПЕ";
+		(*outMsg)["message"] = "Не верный айпи";
 	if (ip["lon"].is_number() && ip["lat"].is_number())
 	{
 		(*outMsg)["long"] = to_string((float)ip["lon"]);
