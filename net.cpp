@@ -1,13 +1,12 @@
 #include <curl/curl.h>
 #include "common.h"
-#include<iostream>
+#include <iostream>
 #include <stdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <mutex>
 
-#define net_agent "EVGESHAd vk-cpp-bot"
-//#define printOut
+#define net_agent "EVGESHAd/tyabus vk-cpp-bot-lite"
 
 mutex infoLock;
 

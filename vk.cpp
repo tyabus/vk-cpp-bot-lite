@@ -30,7 +30,7 @@ void vk::init()
 		data_temp["token"] = "put vk token here (vkhost.github.io)";
 	}
 	if(data_temp["names"].is_null())
-        data_temp["names"] =  {"боря", "борян", "бот"};
+        data_temp["names"] =  {"боря", "борян", "бот", ";"};
     botname = data_temp["names"];
 
     if(data_temp["friendsadd"].is_null())
