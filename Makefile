@@ -1,5 +1,4 @@
-CC=gcc
-CFLAGS=-Ofast -march=pentium4 -mtune=pentium4 -std=c++11 -c
+CFLAGS=-Ofast -std=c++11 -c
 LDFLAGS=-lstdc++ -lcurl -lgd -pthread
 INCLUDES= -I json/include -I json/include/nlohmann
 SOURCES=	\
