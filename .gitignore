@@ -1,5 +1,6 @@
 vkbotlite
 *.o
+scr/*
 *.json
 *.sh
 cmd-*

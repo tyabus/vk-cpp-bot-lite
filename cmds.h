@@ -16,9 +16,6 @@ namespace cmds
 	void when(message *inMsg, table *outMsg);
 #ifndef NO_PYTHON
 	void py(message *inMsg, table *outMsg);
-#endif
-	void ip(message *inMsg, table *outMsg);
-#ifndef NO_PYTHON
 	void pyinit(message *inMsg, table *outMsg);
 #endif
 }

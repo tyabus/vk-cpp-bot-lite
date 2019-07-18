@@ -24,7 +24,7 @@ else
 	ifdef TERMUX
 		LDFLAGS+= -lboost_python36
 	else
-		LDFLAGS+= -lboost_python-py35
+		LDFLAGS+= -lboost_python3
 	endif
 	SOURCES+= 	py.cpp
 endif

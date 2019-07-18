@@ -418,19 +418,6 @@ void cmds::py(message *inMsg, table *outMsg)
 }
 #endif
 
-void cmds::ip(message *inMsg, table *outMsg)
-{
-	json ip = json::parse(net::send("http://ip-api.com/json/" + str::summ(inMsg->words, 1)));
-	(*outMsg)["message"] = ip.dump(4);
-	if (!ip["message"].is_null())
-		(*outMsg)["message"] = "Не верный айпи";
-	if (ip["lon"].is_number() && ip["lat"].is_number())
-	{
-		(*outMsg)["long"] = to_string((float)ip["lon"]);
-		(*outMsg)["lat"] = to_string((float)ip["lat"]);
-	}
-}
-
 int delta(gdImagePtr im, int x, int y, int r)
 {
 	int rr = r*r;

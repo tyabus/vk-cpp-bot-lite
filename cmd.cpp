@@ -38,7 +38,6 @@ void cmd::init()
 	cmd::add("кто", &cmds::who, true, "рандом в чате", 0, 1);
 	cmd::add("когда", &cmds::when, true, "когда что либо произойдёт", 0, 1);
 	cmd::add("инфа", &cmds::info, true, "вероятности", 0, 1);
-	cmd::add("ip", &cmds::ip, true, "вычисляет по ойпе", 0, 1);
 
 #ifndef NO_PYTHON
 	cmd::add("pyinit", &cmds::pyinit, true, "re init py cmds", 0, 5);
