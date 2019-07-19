@@ -6,6 +6,8 @@ VK based bot on C++
 
 First of all, we need to install a lot of packages.
 
+If you want to build bot without python3, then don't install python3-* packages.
+
 For install on Ubuntu/Debian:
 ```
 sudo apt-get install git gcc g++ make libcurl4-openssl-dev libgd-dev libboost-python-dev python3-dev python3-pip
@@ -27,4 +29,4 @@ make
 ```
 
 ### Configuration
-after first launch configure bot in config.json
+after the first launch configure bot in config.json
