@@ -1,6 +1,7 @@
 vkbotlite-*
 *.o
 scr/*
+*.save
 *.json
 *.sh
 *.bak
