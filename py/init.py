@@ -11,4 +11,3 @@ init('allchats', 'allchats.py', 1, 'статистика всех чатов в 
 init('вики', 'wiki_ru.py', 1, 'ru.wikipedia.org', 0, 1)
 init('wiki', 'wiki_en.py', 1, 'en.wikipedia.org', 0, 1)
 init('online', 'online.py', 1, 'онлайн чата', 0, 1)
-init('scr', 'scr.py', 1, 'скриншот сайта', 0, 1)
