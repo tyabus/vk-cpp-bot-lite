@@ -1,10 +1,6 @@
 // commands here
 
 #include "common.h"
-#include <gd.h>
-#include <ctime>
-#include <random>
-#include <mutex>
 
 #define max_msg_size 4000
 
@@ -416,38 +412,7 @@ void cmds::py(message *inMsg, table *outMsg)
 		(*outMsg)["message"] = "";
 	}
 }
-#endif
 
-int delta(gdImagePtr im, int x, int y, int r)
-{
-	int rr = r*r;
-	long long summ[3] = { 0, 0, 0 };
-	int colors[3];
-	unsigned int c = 0;
-	for (int xc = x - r; xc <= x + r; xc++)
-	{
-		for (int yc = y - r; yc <= y + r; yc++)
-		{
-			if (rr >= (xc - x)*(xc - x) + (yc - y)*(yc - y) && xc >= 0 && yc >= 0 && xc < im->sx&&yc < im->sy)
-			{
-				int color = gdImageGetTrueColorPixel(im, xc, yc);
-				summ[0] += gdTrueColorGetRed(color);
-				summ[1] += gdTrueColorGetGreen(color);
-				summ[2] += gdTrueColorGetBlue(color);
-				c++;
-			}
-		}
-	}
-	int color = gdImageGetTrueColorPixel(im, x, y);
-	colors[0] = gdTrueColorGetRed(color) - summ[0] / c;
-	colors[1] = gdTrueColorGetGreen(color) - summ[1] / c;
-	colors[2] = gdTrueColorGetBlue(color) - summ[2] / c;
-	for (int i = 0; i < 3; i++)
-		if (colors[i] < 0)colors[i] = 0;
-	return gdImageColorClosest(im, colors[0], colors[1], colors[2]);
-}
-
-#ifndef NO_PYTHON
 void cmds::pyinit(message *inMsg, table *outMsg)
 {
     cmd::init();
