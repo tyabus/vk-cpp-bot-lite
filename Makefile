@@ -1,7 +1,8 @@
-CFLAGS=-Ofast -std=c++11 -c
-LDFLAGS=-lstdc++ -lcurl -lgd -pthread
-INCLUDES= -I json/include -I json/include/nlohmann
-SOURCES=	\
+ARCH = $(shell uname -m)
+CFLAGS = -Ofast -std=c++11 -march=native -c
+LDFLAGS = -lstdc++ -lcurl -lgd -pthread
+INCLUDES = -I json/include -I json/include/nlohmann
+SOURCES =	\
 	fs.cpp \
 	net.cpp \
 	vk.cpp \
@@ -13,8 +14,8 @@ SOURCES=	\
 	cmd.cpp \
 	cmds.cpp \
 	main.cpp
-OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=vkbotlite
+OBJECTS = $(SOURCES:.cpp=.o)
+EXECUTABLE = vkbotlite-$(ARCH)
 
 ifdef NO_PYTHON
 	CFLAGS+= -DNO_PYTHON
@@ -40,9 +41,9 @@ all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
-	strip $(EXECUTABLE)
+	strip --strip-unneeded $(EXECUTABLE)
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 clean:
-	rm -rf $(OBJECTS) $(EXECUTABLE)
+	rm -f $(OBJECTS) $(EXECUTABLE)
