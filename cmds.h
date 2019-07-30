@@ -14,6 +14,7 @@ namespace cmds
 	void info(message *inMsg, table *outMsg);
 	void who(message *inMsg, table *outMsg);
 	void when(message *inMsg, table *outMsg);
+	void botinfo(message *inMsg, table *outMsg);
 #ifndef NO_PYTHON
 	void py(message *inMsg, table *outMsg);
 	void pyinit(message *inMsg, table *outMsg);

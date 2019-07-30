@@ -1,6 +1,7 @@
 // commands here
 
 #include "common.h"
+#include <curl/curl.h>
 
 #define max_msg_size 4000
 
@@ -89,6 +90,18 @@ void cmds::upload(message *inMsg, table *outMsg)
 		name = "rm -f " + name;
 		system(name.c_str());
 	}
+	return;
+}
+
+void cmds::botinfo(message *inMsg, table *outMsg)
+{
+	(*outMsg)["message"] += "vk-cpp-bot-lite сборка " + std::string(__DATE__) + " " + std::string(__TIME__) + "\n";
+	(*outMsg)["message"] += "Версия бота: " + std::string(BOT_VERSION) + "\n";
+	(*outMsg)["message"] += "Версия компилятора: " + std::string(__VERSION__) + "\n";
+	#ifdef DEBUG
+	(*outMsg)["message"] += "Дебаг билд\n";
+	#endif
+	(*outMsg)["message"] += "О libcurl: " + std::string(curl_version()) + "\n";
 	return;
 }
 

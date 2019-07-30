@@ -34,7 +34,8 @@ void cmd::init()
 	cmd::add("f", &cmds::f, false, "видосы с правками)", 0, 2);
 	cmd::add("доки", &cmds::doc, true, "доки", 0, 2);
 	cmd::add("set", &cmds::set, true, "access set", 0, 5);
-	cmd::add("exe", &cmds::execute, true, "api", 0, 5);
+	cmd::add("exe", &cmds::execute, true, "vk api", 0, 5);
+	cmd::add("оботе", &cmds::botinfo, true, "о боте", 0, 1);
 	cmd::add("кто", &cmds::who, true, "рандом в чате", 0, 1);
 	cmd::add("когда", &cmds::when, true, "когда что либо произойдёт", 0, 1);
 	cmd::add("инфа", &cmds::info, true, "вероятности", 0, 1);
@@ -42,7 +43,6 @@ void cmd::init()
 #ifndef NO_PYTHON
 	cmd::add("pyinit", &cmds::pyinit, true, "re init py cmds", 0, 5);
 	cmd::add("py", &cmds::py, true, "python 3", 0, 3);
-	
 	//py init
 	PySubThread sub;
 	try
