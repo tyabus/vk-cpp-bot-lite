@@ -1,6 +1,6 @@
 ARCH = $(shell uname -m)
 BOT_COMMIT = $(firstword $(shell git rev-parse --short=6 HEAD) unknown)
-CFLAGS = -Ofast -std=c++11 -march=native -c -DBOT_VERSION=\"$(BOT_COMMIT)\"
+CFLAGS = -Ofast -std=c++11 -march=native -c -DCXX=\"$(CXX)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
 LDFLAGS = -lstdc++ -lcurl -lgd -pthread
 INCLUDES = -I json/include -I json/include/nlohmann
 SOURCES =	\

@@ -97,7 +97,7 @@ void cmds::botinfo(message *inMsg, table *outMsg)
 {
 	(*outMsg)["message"] += "vk-cpp-bot-lite сборка " + std::string(__DATE__) + " " + std::string(__TIME__) + "\n";
 	(*outMsg)["message"] += "Версия бота: " + std::string(BOT_VERSION) + "\n";
-	(*outMsg)["message"] += "Версия компилятора: " + std::string(__VERSION__) + "\n";
+	(*outMsg)["message"] += "Версия компилятора: " + std::string(CXX) + " " + std::string(__VERSION__) + "\n";
 	#ifdef DEBUG
 	(*outMsg)["message"] += "Дебаг билд\n";
 	#endif
