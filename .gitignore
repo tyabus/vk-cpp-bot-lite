@@ -4,5 +4,6 @@ scr/*
 *.save
 *.json
 *.sh
+cmd-*
 *.bak
 

@@ -1,7 +1,7 @@
 #include "common.h"
 #include <mutex>
 #include <iostream>
-#include "thr/include/ThreadPool.h"
+#include "ThreadPool.h"
 
 bool forwardmessages;
 json botname;
