@@ -4,7 +4,7 @@
 namespace module
 {
 	void start();
-	
+
 	namespace user
 	{
 		void read();

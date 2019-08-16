@@ -4,11 +4,13 @@
 namespace cmd
 {
 	typedef void(*msg_func)(message *inMsg, table *outMsg); // func(inMsg, outMsg)
-	typedef struct{
+	typedef struct
+	{
 		cmd::msg_func func;
 		string pyPath;
 	}ex_t;
-	typedef struct{
+	typedef struct
+	{
 		string info;
 		ex_t ex;
 		int cost; // nothing
@@ -24,8 +26,8 @@ namespace cmd
 	#endif
 	void start(message *inMsg, table *outMsg, string command);
 	string helpList(message *inMsg);
-    void easySet(string id, string cmd);
-    string easyGet(string id);
+    	void easySet(string id, string cmd);
+    	string easyGet(string id);
 }
 
 #endif

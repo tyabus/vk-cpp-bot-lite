@@ -13,15 +13,16 @@ using json = nlohmann::json;
 
 typedef vector<string> args;
 typedef map<string, string> table;
-typedef struct{
-    json js;
-    char flags;
-    int msg_id;
-    int user_id;
-    string msg;
-    int chat_id;
-    args words;
-} message;
+typedef struct
+{
+	json js;
+	char flags;
+	int msg_id;
+	int user_id;
+	string msg;
+	int chat_id;
+	args words;
+}message;
 
 #include "fs.h"
 #include "net.h"

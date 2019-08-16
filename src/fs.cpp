@@ -5,7 +5,8 @@ bool fs::exists(string path)
 {
 	std::ifstream fin;
 	fin.open(path);
-	if (fin.is_open()) {
+	if (fin.is_open())
+	{
 		fin.close();
 		return true;
 	}
@@ -31,7 +32,8 @@ string fs::file::read()
 {
 	string data;
 	string line;
-	while (std::getline(this->_stream, line)) {
+	while (std::getline(this->_stream, line))
+	{
 		data += line;
 		data += "\n";
 	}
@@ -64,7 +66,8 @@ void fs::file::writeBinary(const char *data, size_t size)
 
 void fs::writeData(string path, string data)
 {
-	if (fs::file *file = fs::open(path, FS_WRITE)) {
+	if (fs::file *file = fs::open(path, FS_WRITE))
+	{
 		file->write(data);
 		file->close();
 	}
