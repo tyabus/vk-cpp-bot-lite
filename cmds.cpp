@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include <curl/curl.h>
+#include <cmath>
 
 #define max_msg_size 4000
 
@@ -9,7 +10,7 @@ void cmds::weather(message *inMsg, table *outMsg)
 {
 	if (inMsg->words.size() < 2)
 	{
-		(*outMsg)["message"] += "Введи город/село";
+		(*outMsg)["message"] += "Введи город или село";
 		return;
 	}
 	table params =
@@ -74,6 +75,7 @@ void cmds::con(message *inMsg, table *outMsg)
 	}
 }
 
+#ifndef NO_LIBGD
 void cmds::upload(message *inMsg, table *outMsg)
 {
 	if (inMsg->words.size() < 2)
@@ -92,6 +94,22 @@ void cmds::upload(message *inMsg, table *outMsg)
 	}
 	return;
 }
+#endif
+
+void cmds::square(message *inMsg, table *outMsg)
+{
+	if(inMsg->words.size() < 1)
+	{
+		(*outMsg)["message"] += "...";
+		return;
+	}
+
+	string words = str::summ(inMsg->words, 1);
+
+	int wordsint = atof(words.c_str());
+	(*outMsg)["message"] += std::string("Результат: ") + std::to_string(sqrt(wordsint)) + "\n";
+	return;
+}
 
 void cmds::botinfo(message *inMsg, table *outMsg)
 {
@@ -99,9 +117,16 @@ void cmds::botinfo(message *inMsg, table *outMsg)
 	(*outMsg)["message"] += "Версия бота: " + std::string(BOT_VERSION) + "\n";
 	(*outMsg)["message"] += "Версия компилятора: " + std::string(CXX) + " " + std::string(__VERSION__) + "\n";
 	(*outMsg)["message"] += "Максимальное количество потоков: " + std::to_string(MAXTHREADS) + "\n";
+	#ifdef NO_PYTHON
+	(*outMsg)["message"] += "Python в сборке отсутствует\n";
+	#endif // NO_PYTHON
+	#ifdef NO_LIBGD
+	(*outMsg)["message"] += "LibGD в сборке отсутствует\n";
+	#endif // NO_LIBGD
 	#ifdef DEBUG
 	(*outMsg)["message"] += "Дебаг билд\n";
-	#endif
+	#endif // DEBUG
+	(*outMsg)["message"] += "Версия nlohmann json: " + std::to_string(NLOHMANN_JSON_VERSION_MAJOR) + "." + std::to_string(NLOHMANN_JSON_VERSION_MINOR) + "." + std::to_string(NLOHMANN_JSON_VERSION_PATCH) + "\n";
 	(*outMsg)["message"] += "О libcurl: " + std::string(curl_version()) + "\n";
 	return;
 }
@@ -257,6 +282,7 @@ void cmds::set(message *inMsg, table *outMsg)
 		return;
 	}
 	module::user::set(inMsg->words[1], str::fromString(inMsg->words[2]));
+	(*outMsg)["message"] += "Пользователю " + std::string("@id") + inMsg->words[1] + " был изменен уровень доступа на " + inMsg->words[2];
 }
 
 void cmds::execute(message *inMsg, table *outMsg)
@@ -300,14 +326,14 @@ void cmds::execute(message *inMsg, table *outMsg)
 
 void cmds::who(message *inMsg, table *outMsg)
 {
-	if (inMsg->words.size() < 2)
+	if (inMsg->words.size() < 2 || inMsg->words.size() > 50)
 	{
 		(*outMsg)["message"] += "...";
 		return;
 	}
 	if (!inMsg->chat_id)
 	{
-		(*outMsg)["message"] += "ты не в чате...";
+		(*outMsg)["message"] += "Ты не в чате...";
 		return;
 	}
 	table params =
@@ -317,10 +343,7 @@ void cmds::who(message *inMsg, table *outMsg)
 	};
 	json res = vk::send("messages.getChatUsers", params)["response"];
 	unsigned int i = rand() % res.size();
-	string who = str::summ(inMsg->words, 1);
-	if (who[who.size() - 1] == '?')
-		who.resize(who.size() - 1);
-	(*outMsg)["message"] += "Я считаю, что " + who + " - [id" + to_string((int)res[i]["id"]) + "|" + res[i]["first_name"].get<string>() + "]";
+	(*outMsg)["message"] += "Я считаю, что это [id" + to_string((int)res[i]["id"]) + "|" + res[i]["first_name"].get<string>() + "]";
 }
 
 void cmds::when(message *inMsg, table *outMsg)
@@ -338,16 +361,35 @@ void cmds::when(message *inMsg, table *outMsg)
 
 void cmds::info(message *inMsg, table *outMsg)
 {
-	if (inMsg->words.size() < 2)
+	if (inMsg->words.size() < 2 || inMsg->words.size() > 50)
 	{
 		(*outMsg)["message"] += "...";
 		return;
 	}
-	unsigned int i = rand() % 130;
-	if (i > 100)
-		i = (i - 100) * 10;
-	string info = str::summ(inMsg->words, 1);
-	(*outMsg)["message"] += "Вероятность того, что " + info + " - " + to_string(i) + "%";
+	unsigned int i = rand() % 100;
+	(*outMsg)["message"] += "Вероятность этого равна " + to_string(i) + "%";
+}
+
+void cmds::stat(message *inMsg, table *outMsg)
+{
+	std::chrono::time_point<std::chrono::system_clock> begin, end;
+	begin = std::chrono::system_clock::now();
+	net::send("http://api.vk.com", "");
+	end = std::chrono::system_clock::now();
+	unsigned int t = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+	(*outMsg)["message"] += "Обработка VK API за: " + std::to_string(t) + "мс\n";
+	string myMem = to_string((int)((float)str::fromString(other::getParamOfPath("/proc/self/status", "VmRSS")) / 1024));
+
+	auto net_info = str::words(net::getInfo(), ' ');
+
+	(*outMsg)["message"] += "CPU:" + other::getParamOfPath("/proc/cpuinfo", "model name") + "\n";
+	(*outMsg)["message"] += "Потоков занято: " + other::getParamOfPath("/proc/self/status", "Threads") + "\n";
+	(*outMsg)["message"] += "Я сожрал оперативы: " + myMem + " Мб\n";
+	(*outMsg)["message"] += "Запущен: " + other::getTime() + "\n";
+ 	(*outMsg)["message"] += "\nТрафик:\n";
+	(*outMsg)["message"] += "Запросы: ↑" + net_info[1] + "B ↓" + net_info[0] + "B\n";
+	(*outMsg)["message"] += "Выгрузка: ↑" + net_info[3] + "B ↓" + net_info[2] + "B\n";
+	(*outMsg)["message"] += "Закачка: ↑" + net_info[5] + "B ↓" + net_info[4] + "B\n";
 }
 
 #ifndef NO_PYTHON

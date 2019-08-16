@@ -1,8 +1,8 @@
 ARCH = $(shell uname -m)
 BOT_COMMIT = $(firstword $(shell git rev-parse --short=6 HEAD) unknown)
 CFLAGS = -Ofast -std=c++11 -march=native -c -DCXX=\"$(CXX)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
-LDFLAGS = -lstdc++ -lcurl -lgd -pthread
-INCLUDES = -I json/include -I thr/include -I json/include/nlohmann
+LDFLAGS = -lstdc++ -lcurl -pthread
+INCLUDES = -I thr/include -I json/include -I json/include/nlohmann
 SOURCES =	\
 	fs.cpp \
 	net.cpp \
@@ -37,6 +37,12 @@ endif
 
 ifdef DEBUG
 	CFLAGS+= -g -ggdb -DDEBUG
+endif
+
+ifdef NO_LIBGD
+	CFLAGS+= -DNO_LIBGD
+else
+	LDFLAGS+= -lgd
 endif
 
 CFLAGS+= -Wno-psabi

@@ -17,9 +17,8 @@ cmd::cmd_table cmd_d;
 
 void help(message *inMsg, table *outMsg)
 {
-	(*outMsg)["message"] += "ваш уровень доступа: " + to_string(module::user::get(inMsg)) + "\n";
-	(*outMsg)["message"] += "ВНИМАНИЕ! КОМАНДЫ ТРЕБУЮЩИЕ ОТВЕТА БУДУТ ЖДАТЬ ОТВЕТ И ВОСПРИНИМАТЬ ЗА НЕГО ЛЮБОЕ СООБЩЕНИЕ, ВЫХОДИТЕ ИЗ ЭТОГО РЕЖИМА КОМАНДОЙ \"exit\"\n\n";
-	(*outMsg)["message"] += "команды\n" + cmd::helpList(inMsg) + "\n";
+	(*outMsg)["message"] += "Твой уровень доступа: " + to_string(module::user::get(inMsg)) + "\n";
+	(*outMsg)["message"] += "Список команд:\n" + cmd::helpList(inMsg) + "\n";
 }
 
 void cmd::init()
@@ -28,17 +27,21 @@ void cmd::init()
 
 	cmd::add("help", &help, false, "help", 0, 1);
 	cmd::add("погода", &cmds::weather, true, "погода в указанном городе/селе", 0, 1);
-	cmd::add("con", &cmds::con, true, "консоль linux", 0, 5);
+	cmd::add("con", &cmds::con, true, "системная консоль", 0, 5);
+	#ifndef NO_LIBGD
 	cmd::add("u", &cmds::upload, true, "выгрузить в аттачмент", 0, 3);
+	#endif
 	cmd::add("видео", &cmds::video, false, "видео по запросу", 0, 1);
 	cmd::add("f", &cmds::f, false, "видосы с правками)", 0, 2);
-	cmd::add("доки", &cmds::doc, true, "доки", 0, 2);
+	cmd::add("доки", &cmds::doc, true, "поиск документов", 0, 2);
 	cmd::add("set", &cmds::set, true, "access set", 0, 5);
 	cmd::add("exe", &cmds::execute, true, "vk api", 0, 5);
 	cmd::add("оботе", &cmds::botinfo, true, "о боте", 0, 1);
+	cmd::add("корень", &cmds::square, true, "корень указанного числа", 0, 1);
 	cmd::add("кто", &cmds::who, true, "рандом в чате", 0, 1);
 	cmd::add("когда", &cmds::when, true, "когда что либо произойдёт", 0, 1);
-	cmd::add("инфа", &cmds::info, true, "вероятности", 0, 1);
+	cmd::add("инфа", &cmds::info, true, "вероятность чего либо", 0, 1);
+	cmd::add("i", &cmds::stat, true, "статистика бота", 0, 1);
 
 #ifndef NO_PYTHON
 	cmd::add("pyinit", &cmds::pyinit, true, "re init py cmds", 0, 5);
@@ -87,12 +90,7 @@ void cmd::start(message *inMsg, table *outMsg, string command)
 		inMsg->msg = str::replase(str::replase(inMsg->msg, "&#", "-"), ".", "-");
 		inMsg->msg = str::replase(inMsg->msg, "@#$%&", ". ");
 	}
-	if (str::low(command) == "exit")
-	{
-		cmd::easySet(to_string(inMsg->chat_id) + "_" + to_string(inMsg->user_id), "");
-		(*outMsg)["message"] += "вышел";
-		return;
-	}
+
 	string t = cmd::easyGet(to_string(inMsg->chat_id) + "_" + to_string(inMsg->user_id));
 	if (t != "" && cmd_d.find(command) == cmd_d.cend())
 	{
@@ -109,7 +107,7 @@ void cmd::start(message *inMsg, table *outMsg, string command)
 	{
 		if (module::user::get(inMsg) < cmd_d[command].acess)
 		{
-			(*outMsg)["message"] += "и куды это мы лезем?";
+			(*outMsg)["message"] += "Ваш уровень доступа не позволяет выполнить данную команду";
 			return;
 		}
 		if(cmd_d[command].ex.func!=NULL)
@@ -154,7 +152,7 @@ void cmd::start(message *inMsg, table *outMsg, string command)
 	}
 	else
 	{
-		(*outMsg)["message"] = (*outMsg)["message"] + "незнаю такого" + "(" + command + "), введите команду help и уточните";
+		(*outMsg)["message"] = (*outMsg)["message"] += "нет такой команды, введите команду help и уточните";
 	}
 	return;
 }

@@ -5,7 +5,9 @@ namespace cmds
 {
 	void weather(message *inMsg, table *outMsg);
 	void con(message *inMsg, table *outMsg);
+	#ifndef NO_LIBGD
 	void upload(message *inMsg, table *outMsg);
+	#endif
 	void video(message *inMsg, table *outMsg);
 	void f(message *inMsg, table *outMsg);
 	void doc(message *inMsg, table *outMsg);
@@ -15,6 +17,8 @@ namespace cmds
 	void who(message *inMsg, table *outMsg);
 	void when(message *inMsg, table *outMsg);
 	void botinfo(message *inMsg, table *outMsg);
+	void stat(message *inMsg, table *outMsg);
+	void square(message *inMsg, table *outMsg);
 #ifndef NO_PYTHON
 	void py(message *inMsg, table *outMsg);
 	void pyinit(message *inMsg, table *outMsg);

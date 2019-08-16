@@ -15,4 +15,4 @@ else:
 		vk_send('messages.removeChatUser', {'chat_id':str(chat_id), 'user_id':id}, 1)
 		outMsg={'peer_id':outMsg['peer_id']}
 	except:
-		outMsg['message']='¯\\_(ツ)_/¯']
+		outMsg['message']='Что то пошло не по плану'
