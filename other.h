@@ -5,6 +5,7 @@ namespace other
 {
 	void sleep(int ms);
 	void startTime();
+	void cleancmds();
 	string getTime();
 	string getRealTime();
 	string getTime(time_t temp);

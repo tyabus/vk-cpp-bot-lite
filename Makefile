@@ -23,16 +23,8 @@ ifdef NO_PYTHON
 else
 	CFLAGS+= $(shell pkg-config --cflags python3)
 	LDFLAGS+= $(shell pkg-config --libs python3)
-	ifdef TERMUX
-		LDFLAGS+= -lboost_python36
-	else
-		LDFLAGS+= -lboost_python3
-	endif
+	LDFLAGS+= -lboost_python3
 	SOURCES+= 	py.cpp
-endif
-
-ifdef TERMUX
-	LDFLAGS+= -latomic
 endif
 
 ifdef DEBUG

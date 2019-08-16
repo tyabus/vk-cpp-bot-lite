@@ -13,6 +13,11 @@ void other::startTime()
 	td = time(NULL);
 }
 
+void other::cleancmds()
+{
+	system("rm -f cmd-*");
+}
+
 string other::getTime()
 {
 	string str = ctime(&td);

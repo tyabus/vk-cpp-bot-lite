@@ -13,6 +13,7 @@ int main()
 #endif
 	vk::init();
 	other::startTime();
+	other::cleancmds();
 	module::start();
 	cmd::init();
         thread friends(vk::friends);
