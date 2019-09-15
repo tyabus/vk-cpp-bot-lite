@@ -186,5 +186,5 @@ void net::download(string url, string filename, string params)
 
 string net::getInfo()
 {
-	return to_string(send_dl) + " " + to_string(send_ul) + " " + to_string(upload_dl) + " " + to_string(upload_ul) + " " + to_string(download_dl) + " " + to_string(download_ul);
+	return to_string(send_dl / 1024) + " " + to_string(send_ul / 1024) + " " + to_string(upload_dl / 1024) + " " + to_string(upload_ul / 1024) + " " + to_string(download_dl / 1024) + " " + to_string(download_ul / 1024);
 }

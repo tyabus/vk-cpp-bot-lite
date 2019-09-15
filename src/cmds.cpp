@@ -387,9 +387,9 @@ void cmds::stat(message *inMsg, table *outMsg)
 	(*outMsg)["message"] += "Я сожрал оперативы: " + myMem + " Мб\n";
 	(*outMsg)["message"] += "Запущен: " + other::getTime() + "\n";
  	(*outMsg)["message"] += "\nТрафик:\n";
-	(*outMsg)["message"] += "Запросы: ↑" + net_info[1] + "B ↓" + net_info[0] + "B\n";
-	(*outMsg)["message"] += "Выгрузка: ↑" + net_info[3] + "B ↓" + net_info[2] + "B\n";
-	(*outMsg)["message"] += "Закачка: ↑" + net_info[5] + "B ↓" + net_info[4] + "B\n";
+	(*outMsg)["message"] += "Запросы: ↑" + net_info[1] + "KiB ↓" + net_info[0] + "KiB\n";
+	(*outMsg)["message"] += "Выгрузка: ↑" + net_info[3] + "KiB ↓" + net_info[2] + "KiB\n";
+	(*outMsg)["message"] += "Закачка: ↑" + net_info[5] + "KiB ↓" + net_info[4] + "KiB\n";
 }
 
 #ifndef NO_PYTHON
