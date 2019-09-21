@@ -1,9 +1,10 @@
 ARCH = $(shell uname -m)
 BOT_COMMIT = $(firstword $(shell git rev-parse --short=6 HEAD) unknown)
-CFLAGS = -O2 -funsafe-loop-optimizations -std=c++11 -march=native -flto -c -DCXX=\"$(CXX)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
+CFLAGS = -O2 -std=c++11 -c -DCXX=\"$(CC)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
 LDFLAGS = -lstdc++ -lcurl -pthread -lm
 INCLUDES = -I thr/include -I json/include -I json/include/nlohmann
-SOURCES = src/fs.cpp \
+SOURCES = \
+	src/fs.cpp \
 	src/net.cpp \
 	src/vk.cpp \
 	src/lp.cpp \
@@ -17,6 +18,10 @@ SOURCES = src/fs.cpp \
 
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = vkbotlite-$(ARCH)
+
+ifeq ($(CC), gcc)
+	CFLAGS+= -flto -Wno-psabi -march=native -funsafe-loop-optimizations
+endif
 
 ifdef NO_PYTHON
 	CFLAGS+= -DNO_PYTHON
@@ -37,7 +42,6 @@ else
 	LDFLAGS+= -lgd
 endif
 
-CFLAGS+= -Wno-psabi
 LDFLAGS+= -Wl,-rpath
 
 all: $(SOURCES) $(EXECUTABLE)
