@@ -10,13 +10,11 @@ If you want to build bot without python3, then don't install python3-* packages.
 
 For install on Ubuntu/Debian:
 ```
-sudo apt install git gcc g++ make libcurl4-openssl-dev libgd-dev libboost-python-dev python3-dev python3-pip
-pip3 install untangle
+sudo apt install git gcc g++ make libcurl4-openssl-dev libgd-dev libboost-python-dev python3-dev
 ````
 For install on Rach Linux:
 ```
-pacman -S git gcc make curl boost gd python-pip python
-pip3 install untangle
+pacman -S git gcc make curl boost gd python
 ```
 
 ### Compiling

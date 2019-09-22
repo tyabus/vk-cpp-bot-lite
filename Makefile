@@ -1,6 +1,5 @@
-ARCH = $(shell uname -m)
 BOT_COMMIT = $(firstword $(shell git rev-parse --short=6 HEAD) unknown)
-CFLAGS = -O2 -std=c++11 -c -DCXX=\"$(CC)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
+CFLAGS = -O2 -std=c++15 -c -DCXX=\"$(CC)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
 LDFLAGS = -lstdc++ -lcurl -pthread -lm
 INCLUDES = -I thr/include -I json/include -I json/include/nlohmann
 SOURCES = \
@@ -17,9 +16,10 @@ SOURCES = \
 	src/main.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
-EXECUTABLE = vkbotlite-$(ARCH)
+EXECUTABLE = vkbotlite
 
-ifeq ($(CC), gcc)
+ifeq ($(CC), cc)
+	CC=g++
 	CFLAGS+= -flto -Wno-psabi -march=native -funsafe-loop-optimizations
 endif
 
@@ -52,5 +52,6 @@ $(EXECUTABLE): $(OBJECTS)
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
+	strip --strip-unneeded $@
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
