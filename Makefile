@@ -1,5 +1,5 @@
 BOT_COMMIT = $(firstword $(shell git rev-parse --short=6 HEAD) unknown)
-CFLAGS = -O2 -std=c++15 -c -DCXX=\"$(CC)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
+CFLAGS = -O2 -std=c++11 -c -DCXX=\"$(CC)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
 LDFLAGS = -lstdc++ -lcurl -pthread -lm
 INCLUDES = -I thr/include -I json/include -I json/include/nlohmann
 SOURCES = \
