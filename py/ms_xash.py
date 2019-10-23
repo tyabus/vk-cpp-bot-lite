@@ -10,7 +10,7 @@ adr=('ms.xash.su', 27010)
 sock.bind(('0.0.0.0', 0))
 sock.sendto(b'1\xff0.0.0.0:0\0\\gamedir\\'+gamedir.encode()+b'\\clver\\1200\\\0', adr)
 data = sock.recvfrom(4096)
-#print(data)
+print(data)
 s = 6
 servs={}
 slots={}

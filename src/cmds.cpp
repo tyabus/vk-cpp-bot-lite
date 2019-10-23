@@ -1,10 +1,28 @@
+/*
+vk-cpp-bot-lite
+Copyright (C) 2019 tyabus,edombek
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 // commands here
 
 #include "common.h"
 #include <curl/curl.h>
 #include <cmath>
 
-#define max_msg_size 4000
+#define MAX_MSG_SIZE 4000
 
 void cmds::weather(message *inMsg, table *outMsg)
 {
@@ -55,7 +73,7 @@ void cmds::con(message *inMsg, table *outMsg)
 	for (unsigned i = 0; i < cmd.size(); i++)
 	{
 		temp.push_back(cmd[i]);
-		if (temp.size() > max_msg_size && (cmd.size() > i + 1 && cmd[i + 1] != '\n'))
+		if (temp.size() > MAX_MSG_SIZE && (cmd.size() > i + 1 && cmd[i + 1] != '\n'))
 		{
 			out.push_back(temp);
 			temp = "";
@@ -115,6 +133,7 @@ void cmds::botinfo(message *inMsg, table *outMsg)
 {
 	(*outMsg)["message"] += "vk-cpp-bot-lite сборка " + std::string(__DATE__) + " " + std::string(__TIME__) + "\n";
 	(*outMsg)["message"] += "Версия бота: " + std::string(BOT_VERSION) + "\n";
+	(*outMsg)["message"] += "Данный бот лицензируется под лицензией GNU GPL v3\n";
 	(*outMsg)["message"] += "Версия компилятора: " + std::string(CXX) + " " + std::string(__VERSION__) + "\n";
 	(*outMsg)["message"] += "Максимальное количество потоков: " + std::to_string(MAXTHREADS) + "\n";
 	#ifdef NO_PYTHON
@@ -282,7 +301,7 @@ void cmds::set(message *inMsg, table *outMsg)
 		return;
 	}
 	module::user::set(inMsg->words[1], str::fromString(inMsg->words[2]));
-	(*outMsg)["message"] += "Пользователю " + std::string("@id") + inMsg->words[1] + " был изменен уровень доступа на " + inMsg->words[2];
+	(*outMsg)["message"] += "Пользователю " + std::string("@id") + inMsg->words[1] + " был установлен уровень доступа на " + inMsg->words[2];
 }
 
 void cmds::execute(message *inMsg, table *outMsg)
@@ -305,7 +324,7 @@ void cmds::execute(message *inMsg, table *outMsg)
 	for (unsigned i = 0; i < resp.size(); i++)
 	{
 		temp.push_back(resp[i]);
-		if (temp.size() > max_msg_size && (resp.size() > i + 1 && resp[i + 1] != '\n'))
+		if (temp.size() > MAX_MSG_SIZE && (resp.size() > i + 1 && resp[i + 1] != '\n'))
 		{
 			out.push_back(temp);
 			temp = "";
@@ -450,7 +469,7 @@ void cmds::py(message *inMsg, table *outMsg)
 	for (unsigned i = 0; i < cmd.size(); i++)
 	{
 		temp.push_back(cmd[i]);
-		if (temp.size() > max_msg_size && (cmd.size() > i + 1 && cmd[i + 1] != '\n'))
+		if (temp.size() > MAX_MSG_SIZE && (cmd.size() > i + 1 && cmd[i + 1] != '\n'))
 		{
 			out.push_back(temp);
 			temp = "";

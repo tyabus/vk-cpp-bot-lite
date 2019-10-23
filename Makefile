@@ -1,5 +1,7 @@
+# vk-cpp-bot-lite Makefile
+
 BOT_COMMIT = $(firstword $(shell git rev-parse --short=6 HEAD) unknown)
-CFLAGS = -O2 -std=c++11 -c -DCXX=\"$(CC)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
+CFLAGS = -O2 -funsafe-loop-optimizations -fomit-frame-pointer -std=c++11 -c -DCXX=\"$(CC)\" -DBOT_VERSION=\"$(BOT_COMMIT)\"
 LDFLAGS = -lstdc++ -lcurl -pthread -lm
 INCLUDES = -I thr/include -I json/include -I json/include/nlohmann
 SOURCES = \
