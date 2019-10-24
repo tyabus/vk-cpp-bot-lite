@@ -1,6 +1,6 @@
 language: cpp
 cache: ccache
-dist: xenial
+dist: bionic
 compiler: g++
 sudo: false
 addons:
@@ -9,10 +9,10 @@ addons:
       - git
       - g++-multilib
       - gcc-multilib
-      - libcurl4-openssl-dev
-      - libgd-dev
-      - libboost-python-dev
-      - python3-dev
+      - libcurl4-openssl-dev:i386
+      - libgd-dev:i386
+      - libboost-python-dev:i386
+      - python3-dev:i386
       - curl
 script:
     - make TRAVIS=1
