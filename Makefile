@@ -23,6 +23,10 @@ ifeq ($(CC), cc)
 	CFLAGS+= -flto -Wno-psabi -march=native -funsafe-loop-optimizations
 endif
 
+ifdef TRAVIS
+	CFLAGS+= -DTRAVIS -m32 -static
+endif
+
 ifdef NO_PYTHON
 	CFLAGS+= -DNO_PYTHON
 else

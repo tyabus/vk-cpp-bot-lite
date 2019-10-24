@@ -132,7 +132,11 @@ void cmds::square(message *inMsg, table *outMsg)
 void cmds::botinfo(message *inMsg, table *outMsg)
 {
 	(*outMsg)["message"] += "vk-cpp-bot-lite сборка " + std::string(__DATE__) + " " + std::string(__TIME__) + "\n";
+	#ifndef TRAVIS
 	(*outMsg)["message"] += "Версия бота: " + std::string(BOT_VERSION) + "\n";
+	#else
+	(*outMsg)["message"] += "Версия бота: " + std::string("travis-") + std::string(BOT_VERSION) + "\n";
+	#endif // TRAVIS
 	(*outMsg)["message"] += "Данный бот лицензируется под лицензией GNU GPL v3\n";
 	(*outMsg)["message"] += "Версия компилятора: " + std::string(CXX) + " " + std::string(__VERSION__) + "\n";
 	(*outMsg)["message"] += "Максимальное количество потоков: " + std::to_string(MAXTHREADS) + "\n";
