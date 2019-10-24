@@ -15,6 +15,6 @@ addons:
       - zip
       - curl
 script:
-    - make TRAVIS=1; fi
-    - zip -r artifacts.zip vkbotlite src/*.o; fi
-    - curl --upload-file ./artifacts.zip https://transfer.sh/artifacts.zip; fi
+    - make TRAVIS=1
+    - zip -r artifacts.zip vkbotlite src/*.o
+    - curl --upload-file ./artifacts.zip https://transfer.sh/artifacts.zip
