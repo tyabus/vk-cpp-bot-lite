@@ -1,4 +1,4 @@
-# VK C++ BOT
+# VK C++ BOT [![Build Status](https://travis-ci.org/tyabus/vk-cpp-bot-lite.svg?branch=master)](https://travis-ci.org/tyabus/vk-cpp-bot-lite)
 
 VK based bot on C++
 
