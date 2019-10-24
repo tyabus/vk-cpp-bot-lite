@@ -24,7 +24,7 @@ ifeq ($(CC), cc)
 endif
 
 ifdef TRAVIS
-	CFLAGS+= -DTRAVIS -m32 -static
+	CFLAGS+= -DTRAVIS -static
 endif
 
 ifdef NO_PYTHON
