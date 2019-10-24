@@ -1,5 +1,6 @@
 language: cpp
 cache: ccache
+dist: bionic
 compiler: g++
 sudo: false
 addons:
@@ -7,6 +8,8 @@ addons:
     packages:
       - git
       - g++
+      - g++-multilib
+      - gcc-multilib
       - make
       - libcurl4-openssl-dev
       - libgd-dev
@@ -16,5 +19,5 @@ addons:
       - curl
 script:
     - make TRAVIS=1
-    - zip -r artifacts.zip vkbotlite src/*.o
-    - curl --upload-file ./artifacts.zip https://transfer.sh/artifacts.zip
+    - zip -r artifacts-x86.zip vkbotlite src/*.o
+    - curl --upload-file ./artifacts-x86.zip https://transfer.sh/artifacts-x86.zip
