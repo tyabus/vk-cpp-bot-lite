@@ -19,7 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "common.h"
 #include <mutex>
 #include <iostream>
+#ifndef _WIN32
 #include "ThreadPool.h"
+#else
+#include "./3rd_party/ThreadPool.h"
+#endif
 
 bool forwardmessages;
 json botname;

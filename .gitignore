@@ -1,8 +1,12 @@
 vkbotlite
+*.exe
+Release/*
+Debug/*
 *.o
 scr/*
 *.save
 *.json
+*.user
 *.sh
 cmd-*
 *.bak

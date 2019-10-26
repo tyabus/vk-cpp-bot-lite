@@ -17,7 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "common.h"
+#ifdef _WIN32
+#include <windows.h>
+#else
 #include <unistd.h>
+#endif
 #include <ctime>
 #include <iostream>
 
@@ -29,7 +33,11 @@ void other::licensenotice()
 }
 void other::sleep(int ms)
 {
+#ifdef __linux__
 	usleep(ms * 1000);
+#elif _WIN32
+	Sleep(ms);
+#endif
 }
 
 time_t td;

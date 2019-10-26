@@ -31,7 +31,9 @@ int main()
 #endif
 	vk::init();
 	other::starttime();
+#ifndef _WIN32
 	other::cleancmds();
+#endif
 	other::licensenotice();
 	module::start();
 	cmd::init();

@@ -13,14 +13,14 @@ SOURCES = src/fs.cpp \
 	  src/modules.cpp \
 	  src/cmd.cpp \
 	  src/cmds.cpp \
-       	  src/main.cpp
+      	  src/main.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = vkbotlite
 
 ifeq ($(CC), cc)
 	CC=g++
-	CFLAGS+= -flto -Wno-psabi -march=native -funsafe-loop-optimizations
+	CFLAGS+= -flto -Wno-psabi -march=native
 endif
 
 ifdef TRAVIS
@@ -38,12 +38,6 @@ endif
 
 ifdef DEBUG
 	CFLAGS+= -g -ggdb -DDEBUG
-endif
-
-ifdef NO_LIBGD
-	CFLAGS+= -DNO_LIBGD
-else
-	LDFLAGS+= -lgd
 endif
 
 LDFLAGS+= -Wl,-rpath

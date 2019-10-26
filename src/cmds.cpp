@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // commands here
 
 #include "common.h"
-#include <curl/curl.h>
 #include <cmath>
 
 #define MAX_MSG_SIZE 4000
@@ -93,7 +92,6 @@ void cmds::con(message *inMsg, table *outMsg)
 	}
 }
 
-#ifndef NO_LIBGD
 void cmds::upload(message *inMsg, table *outMsg)
 {
 	if (inMsg->words.size() < 2)
@@ -112,7 +110,6 @@ void cmds::upload(message *inMsg, table *outMsg)
 	}
 	return;
 }
-#endif
 
 void cmds::square(message *inMsg, table *outMsg)
 {
@@ -138,14 +135,13 @@ void cmds::botinfo(message *inMsg, table *outMsg)
 	(*outMsg)["message"] += "Версия бота: " + std::string("travis-") + std::string(BOT_VERSION) + "\n";
 	#endif // TRAVIS
 	(*outMsg)["message"] += "Данный бот лицензируется под лицензией GNU GPL v3\n";
+	#ifndef _WIN32
 	(*outMsg)["message"] += "Версия компилятора: " + std::string(CXX) + " " + std::string(__VERSION__) + "\n";
+	#endif
 	(*outMsg)["message"] += "Максимальное количество потоков: " + std::to_string(MAXTHREADS) + "\n";
 	#ifdef NO_PYTHON
 	(*outMsg)["message"] += "Python в сборке отсутствует\n";
 	#endif // NO_PYTHON
-	#ifdef NO_LIBGD
-	(*outMsg)["message"] += "LibGD в сборке отсутствует\n";
-	#endif // NO_LIBGD
 	#ifdef DEBUG
 	(*outMsg)["message"] += "Дебаг билд\n";
 	#endif // DEBUG
@@ -401,14 +397,16 @@ void cmds::stat(message *inMsg, table *outMsg)
 	end = std::chrono::system_clock::now();
 	unsigned int t = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
 	(*outMsg)["message"] += "Обработка VK API за: " + std::to_string(t) + "мс\n";
+	#ifdef __LINUX__
 	string myMem = to_string((int)((float)str::fromString(other::getParamOfPath("/proc/self/status", "VmRSS")) / 1024));
-
+	#endif
 	auto net_info = str::words(net::getInfo(), ' ');
-
+	#ifdef __LINUX__
 	(*outMsg)["message"] += "CPU:" + other::getParamOfPath("/proc/cpuinfo", "model name") + "\n";
 	(*outMsg)["message"] += "Потоков занято: " + other::getParamOfPath("/proc/self/status", "Threads") + "\n";
 	(*outMsg)["message"] += "Я сожрал оперативы: " + myMem + " Мб\n";
 	(*outMsg)["message"] += "Запущен: " + other::getTime() + "\n";
+	#endif
  	(*outMsg)["message"] += "\nТрафик:\n";
 	(*outMsg)["message"] += "Запросы: ↑" + net_info[1] + "KiB ↓" + net_info[0] + "KiB\n";
 	(*outMsg)["message"] += "Выгрузка: ↑" + net_info[3] + "KiB ↓" + net_info[2] + "KiB\n";

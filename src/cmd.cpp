@@ -46,9 +46,7 @@ void cmd::init()
 	cmd::add("help", &help, false, "help", 0, 1);
 	cmd::add("погода", &cmds::weather, true, "погода в указанном городе/селе", 0, 1);
 	cmd::add("con", &cmds::con, true, "системная консоль", 0, 5);
-	#ifndef NO_LIBGD
 	cmd::add("u", &cmds::upload, true, "выгрузить в аттачмент", 0, 3);
-	#endif
 	cmd::add("видео", &cmds::video, false, "видео по запросу", 0, 1);
 	cmd::add("f", &cmds::f, false, "видосы с правками)", 0, 2);
 	cmd::add("доки", &cmds::doc, true, "поиск документов", 0, 2);
@@ -102,7 +100,7 @@ void cmd::pyAdd(string command, string pyPath, bool disp, string info, int cost,
 
 void cmd::start(message *inMsg, table *outMsg, string command)
 {
-	if (str::low(command) == "idkfa" && str::low(command) == "idfa" )
+	if (str::low(command) == "idkfa" || str::low(command) == "idfa" )
 	{
 		(*outMsg)["message"] += "very happy ammo added";
 		return;

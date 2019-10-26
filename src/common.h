@@ -25,7 +25,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
+#ifdef _WIN32
+#define NO_PYTHON // If someone try to compile this using mingw
+#define BOT_VERSION "unknown-win32"
+#include "./3rd_party/json.hpp"
+#include "../win32deps/include/curl/curl.h"
+#else
+#include <curl/curl.h>
 #include "json.hpp"
+#endif
 
 using json = nlohmann::json;
 

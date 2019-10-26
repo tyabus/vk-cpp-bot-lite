@@ -25,8 +25,6 @@ extern json botname;
 extern bool friendsadd;
 extern bool forwardmessages;
 
-//#define CONFIG "config.json"
-
 #define vk_version  "5.69"
 
 string vk_token = "";

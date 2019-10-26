@@ -11,12 +11,12 @@ If you want to build bot without python3, then don't install python3-dev and lib
 For install on Ubuntu/Debian:
 ```
 sudo apt update
-sudo apt install git gcc g++ make libcurl4-openssl-dev libgd-dev libboost-python-dev python3-dev
+sudo apt install git gcc g++ make libcurl4-openssl-dev libboost-python-dev python3-dev
 ````
 For install on Rach Linux:
 ```
 pacman -Syu
-pacman -S git gcc make curl boost gd python
+pacman -S git gcc make curl boost python
 ```
 
 ### Compiling

@@ -23,9 +23,7 @@ namespace cmds
 {
 	void weather(message *inMsg, table *outMsg);
 	void con(message *inMsg, table *outMsg);
-	#ifndef NO_LIBGD
 	void upload(message *inMsg, table *outMsg);
-	#endif
 	void video(message *inMsg, table *outMsg);
 	void f(message *inMsg, table *outMsg);
 	void doc(message *inMsg, table *outMsg);
