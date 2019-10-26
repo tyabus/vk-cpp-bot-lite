@@ -397,11 +397,11 @@ void cmds::stat(message *inMsg, table *outMsg)
 	end = std::chrono::system_clock::now();
 	unsigned int t = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
 	(*outMsg)["message"] += "Обработка VK API за: " + std::to_string(t) + "мс\n";
-	#ifdef __LINUX__
+	#ifndef _WIN32
 	string myMem = to_string((int)((float)str::fromString(other::getParamOfPath("/proc/self/status", "VmRSS")) / 1024));
 	#endif
 	auto net_info = str::words(net::getInfo(), ' ');
-	#ifdef __LINUX__
+	#ifndef _WIN32
 	(*outMsg)["message"] += "CPU:" + other::getParamOfPath("/proc/cpuinfo", "model name") + "\n";
 	(*outMsg)["message"] += "Потоков занято: " + other::getParamOfPath("/proc/self/status", "Threads") + "\n";
 	(*outMsg)["message"] += "Я сожрал оперативы: " + myMem + " Мб\n";
