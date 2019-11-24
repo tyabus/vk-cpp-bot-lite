@@ -72,22 +72,22 @@ bool lp::errors(json lp_data)
 	switch ((int)lp_data["failed"])
 	{
 	case 1:
-		cout << "LongPoll: " << "Updating ts..." << endl;
+		cout << other::getRealTime() + ": LongPoll: " << "Updating ts..." << endl;
 		break;
 	case 2:
-		cout << "LongPoll: " << "Key is out of date" << endl;
+		cout << other::getRealTime() + ": LongPoll: " << "Key is out of date" << endl;
 		lp::getServer();
 		break;
 	case 3:
-		cout << "LongPoll: " << "Information about the user is lost" << endl;
+		cout << other::getRealTime() + ": LongPoll: " << "Information about the user is lost" << endl;
 		lp::getServer();
 		break;
 	case 4:
-		cout << "LongPoll: " << "Invalid api version" << endl;
+		cout << other::getRealTime() + ": LongPoll: " << "Invalid api version" << endl;
 		return false;
 		break;
 	default:
-		cout << "LongPoll: " << "Reconnect" << endl;
+		cout << other::getRealTime() + ": LongPoll: " << "Reconnect" << endl;
 		lp::getServer();
 		break;
 	}

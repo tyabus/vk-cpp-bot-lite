@@ -6,7 +6,7 @@ gamedir = msg
 if len(gamedir) == 0:
 	gamedir = 'valve'
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-adr=('ms.xash.su', 27010)
+adr=('ms2.xash.su', 27010)
 sock.bind(('0.0.0.0', 0))
 sock.sendto(b'1\xff0.0.0.0:0\0\\gamedir\\'+gamedir.encode()+b'\\clver\\1200\\\0', adr)
 data = sock.recvfrom(4096)
