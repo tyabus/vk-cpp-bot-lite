@@ -3,6 +3,7 @@ import struct
 import time
 import re
 gamedir = msg
+
 if len(gamedir) == 0:
 	gamedir = 'valve'
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -38,7 +39,6 @@ while time.time() - starttime < 2:
 sock.close()
 msg=''
 for key in servs.keys():
-	msg+=key+'-'+str(slots[key][0])+'/'+str(slots[key][1])+'-'+str(int(slots[key][0]*100/slots[key][1]))+'%\n'
 	for serv in servs[key]:
 		msg+='    '+serv[0]+'-'+serv[1]+'-'+serv[2]+'/'+serv[3]+'-('+serv[5]+'-'+serv[4]+'ms)\n'
 outMsg["message"]=msg
