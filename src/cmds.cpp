@@ -135,9 +135,11 @@ void cmds::botinfo(message *inMsg, table *outMsg)
 	(*outMsg)["message"] += "Версия бота: " + std::string("travis-") + std::string(BOT_VERSION) + "\n";
 	#endif // TRAVIS
 	(*outMsg)["message"] += "Данный бот лицензируется под лицензией GNU GPL v3\n";
-	#ifndef _WIN32
+	#ifdef _WIN32
+	(*outMsg)["message"] += "Версия компилятора: " + std::string("msvc ") + std::to_string(_MSC_VER) + "\n";
+	#else // NOT _WIN32
 	(*outMsg)["message"] += "Версия компилятора: " + std::string(CXX) + " " + std::string(__VERSION__) + "\n";
-	#endif
+	#endif // _WIN32
 	(*outMsg)["message"] += "Максимальное количество потоков: " + std::to_string(MAXTHREADS) + "\n";
 	#ifdef NO_PYTHON
 	(*outMsg)["message"] += "Python в сборке отсутствует\n";
@@ -405,8 +407,8 @@ void cmds::stat(message *inMsg, table *outMsg)
 	(*outMsg)["message"] += "CPU:" + other::getParamOfPath("/proc/cpuinfo", "model name") + "\n";
 	(*outMsg)["message"] += "Потоков занято: " + other::getParamOfPath("/proc/self/status", "Threads") + "\n";
 	(*outMsg)["message"] += "Я сожрал оперативы: " + myMem + " Мб\n";
-	(*outMsg)["message"] += "Запущен: " + other::getTime() + "\n";
 	#endif
+	(*outMsg)["message"] += "Запущен: " + other::getTime() + "\n";
  	(*outMsg)["message"] += "\nТрафик:\n";
 	(*outMsg)["message"] += "Запросы: ↑" + net_info[1] + "KiB ↓" + net_info[0] + "KiB\n";
 	(*outMsg)["message"] += "Выгрузка: ↑" + net_info[3] + "KiB ↓" + net_info[2] + "KiB\n";
